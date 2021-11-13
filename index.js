@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 //bicycle_db
 //OGHWXjcZ4JNbScyd
 
-//middleware
+//middleware b
 app.use(cors());
 app.use(express.json());
 
