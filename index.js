@@ -64,6 +64,29 @@ async function run() {
       res.send(result);
     });
 
+    //api put
+    app.put("/product/:id", async (req, res) => {
+      const id = req.params.id;
+      const updatedInfo = req.body;
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          description: updatedInfo.description,
+          image: updatedInfo.image,
+          price: updatedInfo.price,
+          review: updatedInfo.review,
+          title: updatedInfo.title,
+        },
+      };
+      const result = await productCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+      res.json(result);
+    });
+
     //Create A Order Api
     app.post("/order", async (req, res) => {
       const data = req.body;
@@ -90,7 +113,7 @@ async function run() {
 
     //Delete The Order Api
     app.delete("/deleteOrder/:id", async (req, res) => {
-      console.log(req.params.id);
+      // console.log(req.params.id);
       const result = await orderCollection.deleteOne({
         _id: ObjectId(req.params.id),
       });
@@ -100,7 +123,7 @@ async function run() {
     // Status Update
     app.put("/statusUpdate/:id", async (req, res) => {
       const filter = { _id: ObjectId(req.params.id) };
-      console.log(req.params.id);
+      // console.log(req.params.id);
       const result = await orderCollection.updateOne(filter, {
         $set: {
           status: req.body.status,
@@ -132,7 +155,7 @@ async function run() {
     //Put A User Api
     app.put("/users", async (req, res) => {
       const user = req.body;
-      console.log(user);
+      // console.log(user);
       const filter = { email: user.email };
       const options = { upsert: true };
       const updateDoc = {
@@ -149,7 +172,7 @@ async function run() {
     //PUT AND CREATE A ADMIN API
     app.put("/users/admin", async (req, res) => {
       const user = req.body;
-      console.log(user);
+      // console.log(user);
       const filter = { email: user.email };
       const updateDoc = {
         $set: { role: "admin" },
