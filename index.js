@@ -55,7 +55,7 @@ async function run() {
       res.json(service);
     });
 
-    //Delete The PRODUCT Api
+    //Delete The PRODUCT API
     app.delete("/product/:id", async (req, res) => {
       console.log(req.params.id);
       const result = await productCollection.deleteOne({
